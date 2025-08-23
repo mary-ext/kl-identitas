@@ -114,9 +114,9 @@ router.add(ComAtprotoIdentityResolveIdentity.mainSchema, {
 		let handle: Handle;
 		let handleIsValid: boolean;
 
-		const isIdentifierDid = isDid(identifier);
+		const identifierIsDid = isDid(identifier);
 
-		if (isIdentifierDid) {
+		if (identifierIsDid) {
 			did = identifier;
 		} else {
 			did = await resolveHandleToDid(identifier);
@@ -124,7 +124,7 @@ router.add(ComAtprotoIdentityResolveIdentity.mainSchema, {
 
 		const doc = await resolveDidToDoc(did);
 
-		if (isIdentifierDid) {
+		if (identifierIsDid) {
 			const writtenHandle = getAtprotoHandle(doc);
 			if (writtenHandle) {
 				handle = writtenHandle;
