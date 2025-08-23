@@ -1,0 +1,98 @@
+{
+  "version": "5",
+  "specifiers": {
+    "npm:@atcute/atproto@^3.1.2": "3.1.2",
+    "npm:@atcute/identity-resolver@^1.1.3": "1.1.3_@atcute+identity@1.1.0",
+    "npm:@atcute/identity@^1.1.0": "1.1.0",
+    "npm:@atcute/lexicons@^1.1.1": "1.1.1",
+    "npm:@atcute/xrpc-server@~0.1.1": "0.1.1_@atcute+identity@1.1.0"
+  },
+  "npm": {
+    "@atcute/atproto@3.1.2": {
+      "integrity": "sha512-m6OWoGTeL8Wlw7cm8Nrf+NU24rlx5A0DzxEQQPPu1wqYNHw6S33nOU90W+U09vVN0aZGZUrLFfWWhAaSWTp1ZQ==",
+      "dependencies": [
+        "@atcute/lexicons"
+      ]
+    },
+    "@atcute/crypto@2.2.3": {
+      "integrity": "sha512-jJI/8WDK6rKvpoUKi0C9Q7pjRRrHGGAagRxnFvpBM5ycZT9eABz7p309LmRKBCWLasmCs/qee8WK4dqOA2e7Dw==",
+      "dependencies": [
+        "@atcute/multibase",
+        "@atcute/uint8array",
+        "@noble/secp256k1"
+      ]
+    },
+    "@atcute/identity-resolver@1.1.3_@atcute+identity@1.1.0": {
+      "integrity": "sha512-KZgGgg99CWaV7Df3+h3X/WMrDzTPQVfsaoIVbTNLx2B56BvCL2EmaxPSVw/7BFUJMZHlVU4rtoEB4lyvNyMswA==",
+      "dependencies": [
+        "@atcute/identity",
+        "@atcute/lexicons",
+        "@atcute/util-fetch",
+        "@badrap/valita"
+      ]
+    },
+    "@atcute/identity@1.1.0": {
+      "integrity": "sha512-6vRvRqJatDB+JUQsb+UswYmtBGQnSZcqC3a2y6H5DB/v5KcIh+6nFFtc17G0+3W9rxdk7k9M4KkgkdKf/YDNoQ==",
+      "dependencies": [
+        "@atcute/lexicons",
+        "@badrap/valita"
+      ]
+    },
+    "@atcute/lexicons@1.1.1": {
+      "integrity": "sha512-k6qy5p3j9fJJ6ekaMPfEfp3ni4TW/XNuH9ZmsuwC0fi0tOjp+Fa8ZQakHwnqOzFt/cVBfGcmYE/lKNAbeTjgUg==",
+      "dependencies": [
+        "esm-env"
+      ]
+    },
+    "@atcute/multibase@1.1.4": {
+      "integrity": "sha512-NUf5AeeSOmuZHGU+4GAaMtISJoG+ZHtW/vUVA4lK/YDt/7LODAW0Fd0NNIIUPVUoW0xJS6zSEIWvwLLuxmEHhA==",
+      "dependencies": [
+        "@atcute/uint8array"
+      ]
+    },
+    "@atcute/uint8array@1.0.3": {
+      "integrity": "sha512-M/K+ihiVW8Pl2PFLzaC4E3l4JaZ1IH05Q0AbPWUC4cVHnd/gZ/1kAF5ngdtGvJeDMirHZ2VAy7OmAsPwR/2nlA=="
+    },
+    "@atcute/util-fetch@1.0.1": {
+      "integrity": "sha512-Clc0E/5ufyGBVfYBUwWNlHONlZCoblSr4Ho50l1LhmRPGB1Wu/AQ9Sz+rsBg7fdaW/auve8ulmwhRhnX2cGRow==",
+      "dependencies": [
+        "@badrap/valita"
+      ]
+    },
+    "@atcute/xrpc-server@0.1.1_@atcute+identity@1.1.0": {
+      "integrity": "sha512-pkr1yGtcCoApqELLjTIU7DO6SnVly5bAPbVswLHEM2xQfk6X4F/dKFDdPEsXwbRrSSr6leKgPwQPVcUpPQnQ4A==",
+      "dependencies": [
+        "@atcute/crypto",
+        "@atcute/identity",
+        "@atcute/identity-resolver",
+        "@atcute/lexicons",
+        "@atcute/multibase",
+        "@atcute/uint8array",
+        "@badrap/valita",
+        "nanoid"
+      ]
+    },
+    "@badrap/valita@0.4.6": {
+      "integrity": "sha512-4kdqcjyxo/8RQ8ayjms47HCWZIF5981oE5nIenbfThKDxWXtEHKipAOWlflpPJzZx9y/JWYQkp18Awr7VuepFg=="
+    },
+    "@noble/secp256k1@2.3.0": {
+      "integrity": "sha512-0TQed2gcBbIrh7Ccyw+y/uZQvbJwm7Ao4scBUxqpBCcsOlZG0O4KGfjtNAy/li4W8n1xt3dxrwJ0beZ2h2G6Kw=="
+    },
+    "esm-env@1.2.2": {
+      "integrity": "sha512-Epxrv+Nr/CaL4ZcFGPJIYLWFom+YeV1DqMLHJoEd9SYRxNbaFruBwfEX/kkHUJf55j2+TUbmDcmuilbP1TmXHA=="
+    },
+    "nanoid@5.1.5": {
+      "integrity": "sha512-Ir/+ZpE9fDsNH0hQ3C68uyThDXzYcim2EqcZ8zn8Chtt1iylPT9xXJB0kPCnqzgcEGikO9RxSrh63MsmVCU7Fw==",
+      "bin": true
+    }
+  },
+  "workspace": {
+    "dependencies": [
+      "npm:@atcute/atproto@^3.1.2",
+      "npm:@atcute/identity-resolver@^1.1.3",
+      "npm:@atcute/identity@^1.1.0",
+      "npm:@atcute/lexicons@^1.1.1",
+      "npm:@atcute/xrpc-server@~0.1.1"
+    ]
+  }
+}
