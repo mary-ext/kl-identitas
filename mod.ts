@@ -40,8 +40,24 @@ const didDocResolver = new CompositeDidDocumentResolver<string>({
 	},
 });
 
+const cache = await caches.open('default');
+
 const router = new XRPCRouter({
-	middlewares: [cors()],
+	middlewares: [
+		cors(),
+		async (request, next) => {
+			let response = await cache.match(request);
+			if (response === undefined) {
+				response = await next(request);
+
+				if (response.status === 200 && response.headers.has('cache-control')) {
+					await cache.put(request, response.clone());
+				}
+			}
+
+			return response;
+		},
+	],
 });
 
 const resolveHandleToDid = async (handle: Handle): Promise<Did> => {
@@ -96,7 +112,10 @@ router.add(ComAtprotoIdentityResolveHandle.mainSchema, {
 	async handler({ params: { handle } }) {
 		const did = await resolveHandleToDid(handle);
 
-		return json({ did });
+		return json(
+			{ did },
+			{ headers: { 'cache-control': 'public, max-age=600' } },
+		);
 	},
 });
 
@@ -104,7 +123,10 @@ router.add(ComAtprotoIdentityResolveDid.mainSchema, {
 	async handler({ params: { did } }) {
 		const doc = await resolveDidToDoc(did);
 
-		return json({ didDoc: doc as unknown as Record<string, unknown> });
+		return json(
+			{ didDoc: doc as unknown as Record<string, unknown> },
+			{ headers: { 'cache-control': 'public, max-age=3600' } },
+		);
 	},
 });
 
@@ -144,11 +166,14 @@ router.add(ComAtprotoIdentityResolveIdentity.mainSchema, {
 			handleIsValid = getAtprotoHandle(doc) === identifier;
 		}
 
-		return json({
-			did: did,
-			didDoc: doc as unknown as Record<string, unknown>,
-			handle: handleIsValid ? handle : 'handle.invalid',
-		});
+		return json(
+			{
+				did: did,
+				didDoc: doc as unknown as Record<string, unknown>,
+				handle: handleIsValid ? handle : 'handle.invalid',
+			},
+			{ headers: { 'cache-control': 'public, max-age=600' } },
+		);
 	},
 });
 
