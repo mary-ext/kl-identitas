@@ -1,5 +1,6 @@
 import { InvalidRequestError, json, XRPCRouter } from '@atcute/xrpc-server';
 import { cors } from '@atcute/xrpc-server/middlewares/cors';
+import { Client, ok } from '@atcute/client';
 
 import type { Did, Handle } from '@atcute/lexicons';
 import { isDid } from '@atcute/lexicons/syntax';
@@ -58,6 +59,12 @@ const router = new XRPCRouter({
 			return response;
 		},
 	],
+});
+
+const client = new Client({
+	handler(pathname, init) {
+		return router.fetch(new Request(new URL(pathname, 'http://localhost'), init));
+	},
 });
 
 const resolveHandleToDid = async (handle: Handle): Promise<Did> => {
@@ -132,28 +139,53 @@ router.add(ComAtprotoIdentityResolveDid.mainSchema, {
 
 router.add(ComAtprotoIdentityResolveIdentity.mainSchema, {
 	async handler({ params: { identifier } }) {
-		let did: Did;
-		let handle: Handle;
-		let handleIsValid: boolean;
-
 		const identifierIsDid = isDid(identifier);
 
+		let did: Did;
 		if (identifierIsDid) {
 			did = identifier;
 		} else {
-			did = await resolveHandleToDid(identifier);
+			const resolved = await ok(
+				client.get('com.atproto.identity.resolveHandle', {
+					params: {
+						handle: identifier,
+					},
+				}),
+			);
+
+			did = resolved.did;
 		}
 
-		const doc = await resolveDidToDoc(did);
+		let doc: DidDocument;
+		{
+			const resolved = await ok(
+				client.get('com.atproto.identity.resolveDid', {
+					params: {
+						did: did,
+					},
+				}),
+			);
 
+			doc = resolved.didDoc as unknown as DidDocument;
+		}
+
+		let handle: Handle;
+		let handleIsValid: boolean;
 		if (identifierIsDid) {
 			const writtenHandle = getAtprotoHandle(doc);
 			if (writtenHandle) {
 				handle = writtenHandle;
 
 				try {
-					const resolvedDid = await resolveHandleToDid(handle);
-					handleIsValid = did === resolvedDid;
+					const resolved = await ok(
+						client.get('com.atproto.identity.resolveHandle', {
+							params: {
+								handle: handle,
+							},
+						}),
+					);
+
+					handleIsValid = did === resolved.did;
 				} catch {
 					handleIsValid = false;
 				}

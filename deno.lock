@@ -2,6 +2,7 @@
   "version": "5",
   "specifiers": {
     "npm:@atcute/atproto@^3.1.2": "3.1.2",
+    "npm:@atcute/client@^4.0.3": "4.0.3",
     "npm:@atcute/identity-resolver@^1.1.3": "1.1.3_@atcute+identity@1.1.0",
     "npm:@atcute/identity@^1.1.0": "1.1.0",
     "npm:@atcute/lexicons@^1.1.1": "1.1.1",
@@ -11,6 +12,13 @@
     "@atcute/atproto@3.1.2": {
       "integrity": "sha512-m6OWoGTeL8Wlw7cm8Nrf+NU24rlx5A0DzxEQQPPu1wqYNHw6S33nOU90W+U09vVN0aZGZUrLFfWWhAaSWTp1ZQ==",
       "dependencies": [
+        "@atcute/lexicons"
+      ]
+    },
+    "@atcute/client@4.0.3": {
+      "integrity": "sha512-RIOZWFVLca/HiPAAUDqQPOdOreCxTbL5cb+WUf5yqQOKIu5yEAP3eksinmlLmgIrlr5qVOE7brazUUzaskFCfw==",
+      "dependencies": [
+        "@atcute/identity",
         "@atcute/lexicons"
       ]
     },
@@ -89,6 +97,7 @@
   "workspace": {
     "dependencies": [
       "npm:@atcute/atproto@^3.1.2",
+      "npm:@atcute/client@^4.0.3",
       "npm:@atcute/identity-resolver@^1.1.3",
       "npm:@atcute/identity@^1.1.0",
       "npm:@atcute/lexicons@^1.1.1",
